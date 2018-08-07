@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/test', 'Auth\LoginController@test');
+
+// 后台路由
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+    Route::get('/test', 'LoginController@test');
+});
