@@ -10,6 +10,7 @@
         "ccampbell/chromephp": "^4.1",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
+        "qiniu/php-sdk": "^7.2",
         "symfony/var-dumper": "^3.4"
     },
     "require-dev": {
