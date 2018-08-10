@@ -10,12 +10,13 @@ namespace App\Helpers;
 
 
 use Qiniu\Auth;
+use Qiniu\Config;
+use Qiniu\Storage\BucketManager;
 use Qiniu\Storage\UploadManager;
 
 class Qiniu
 {
     private $auth = null;
-    private $uploadMgr = null;
     private $bucket = null;
 
     /**
@@ -35,10 +36,16 @@ class Qiniu
 
         $this->bucket = $bucket;
 
-        // 初始化 UploadManager 对象并进行文件的上传。
-        $this->uploadMgr = new UploadManager();
     }
 
+    /**
+     * 上传图片
+     *
+     * @param string $path 上传文件路径
+     * @param string $name 文件名-key
+     *
+     * @return array
+     */
     public function upload($path, $name)
     {
         if (!$name) {
@@ -47,8 +54,11 @@ class Qiniu
         // 生成上传 Token
         $token = $this->auth->uploadToken($this->bucket);
 
+        // 初始化 UploadManager 对象并进行文件的上传。
+        $uploadMgr = new UploadManager();
+
         // 调用 UploadManager 的 putFile 方法进行文件的上传。
-        list($ret, $err) = $this->uploadMgr->putFile($token, $name, $path);
+        list($ret, $err) = $uploadMgr->putFile($token, $name, $path);
 
         if ($err) {
             return [
@@ -60,6 +70,32 @@ class Qiniu
         return [
             'status' => TRUE,
             'msg'    => env('QINIU_DOMAIN', '') . $name,
+        ];
+    }
+
+    /**
+     * 删除附件
+     *
+     * @param string $key 上传时传的文件名
+     *
+     * @return array
+     */
+    public function delete($key)
+    {
+        $config        = new Config();
+        $bucketManager = new BucketManager($this->auth, $config);
+
+        $err = $bucketManager->delete($this->bucket, $key);
+        if ($err) {
+            return [
+                'status' => FALSE,
+                'msg'    => $err,
+            ];
+        }
+
+        return [
+            'status' => TRUE,
+            'msg'    => '删除成功！',
         ];
     }
 }
