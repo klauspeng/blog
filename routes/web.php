@@ -19,7 +19,10 @@ Route::get('/test', 'Auth\LoginController@test');
 
 // 后台路由
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
-    Route::get('/test', 'LoginController@test');
+    // 登陆
+    Route::get('/login', 'UserController@login')->name('login');
 
     Route::match(['get', 'post'],'/picture', 'PictureController@upload');
+
+    Route::get('/index','IndexController@index');
 });
