@@ -10,11 +10,18 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Services\MenuService;
 
 class IndexController extends Controller
 {
+    /**
+     * 首页
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
+        $tree = MenuService::getMenuTree();
+        // dump($tree);
         return view('index');
     }
 }
