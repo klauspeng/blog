@@ -22,7 +22,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     // 登陆
     Route::match(['get', 'post'],'/login', 'UserController@login')->name('login');
 
-    Route::match(['get', 'post'],'/picture', 'PictureController@upload');
+    // 图片管理
+    Route::group(['prefix' => 'picture'], function () {
+        Route::match(['get', 'post'],'/', 'PictureController@upload');
+        Route::get('/list', 'PictureController@getList');
+        Route::get('/delete/{id?}', 'PictureController@delete')->name('pictureDelete');
+    });
 
     Route::get('/index','IndexController@index')->name('home');
 });

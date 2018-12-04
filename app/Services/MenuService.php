@@ -20,7 +20,7 @@ class MenuService
      */
     public static function getMenuTree()
     {
-        $menus = DB::table('blog_menu')->where('status', 1)->get();
+        $menus = DB::table('menu')->where('status', 1)->get();
         return self::getTree($menus);
     }
 

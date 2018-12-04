@@ -340,44 +340,25 @@
 @endsection
 
 @section('content')
-    <div id="page-wrapper">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Forms</h1>
-            </div>
-            <!-- /.col-lg-12 -->
-        </div>
-        <!-- /.row -->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Basic Form Elements
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <form role="form" method="post" enctype="multipart/form-data">
-                                    {{ csrf_field() }}
-                                    <div class="form-group">
-                                        <label for="file">File input</label>
-                                        <input name="picture" type="file">
-                                    </div>
-                                    <button type="submit" class="btn btn-default">Submit Button</button>
-                                    <button type="reset" class="btn btn-default">Reset Button</button>
-                                </form>
-                            </div>
-                            <!-- /.col-lg-6 (nested) -->
-
-                        </div>
-                        <!-- /.row (nested) -->
-                    </div>
-                    <!-- /.panel-body -->
+    <div class="x-body">
+        <form class="layui-form" method="post" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <div class="layui-form-item">
+                <label for="smfile" class="layui-form-label">
+                    <span class="x-red">*</span>文件
+                </label>
+                <div class="layui-input-inline">
+                    <input type="file" id="smfile" name="smfile" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
                 </div>
-                <!-- /.panel -->
             </div>
-            <!-- /.col-lg-12 -->
-        </div>
-        <!-- /.row -->
+            <div class="layui-form-item">
+                <label for="L_repass" class="layui-form-label">
+                </label>
+                <button class="layui-btn" lay-filter="add" lay-submit="">
+                    增加
+                </button>
+            </div>
+        </form>
     </div>
 @endsection
